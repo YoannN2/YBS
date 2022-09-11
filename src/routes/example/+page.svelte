@@ -38,102 +38,81 @@
 
 <h1>Form Example</h1>
 <div class="card section">
-  <Form bind:formData {validationSchema}>
+  <div class="columns">
+    <div class="column">
+      <Form bind:formData {validationSchema}>
 
-    <Field
-      name="first"
-      label="First"
-      help="Le prénom doit faire plus de 3 caractères"
-      icon="fas fa-user"
-    />
+        <Field
+          name="first"
+          label="First"
+          help="Le prénom doit faire plus de 3 caractères"
+          icon="fas fa-user"
+        />
 
-    <Field
-      type="password"
-      name="last"
-      label="Last"
-      placeholder="world"
-      icon="fas fa-lock"
-    >
-      <div class="button" slot="addons">Hello</div>
-    </Field>
+        <Field
+          type="password"
+          name="last"
+          label="Last"
+          placeholder="world"
+          icon="fas fa-lock"
+        >
+          <div class="button" slot="addons">Hello</div>
+        </Field>
 
-    <Field
-      type="radio"
-      name="radio"
-      options="{options}"
-      label="Radio Field"
-    />
+        <Field
+          type="radio"
+          name="radio"
+          options="{options}"
+          label="Radio Field"
+        />
 
-    <Field
-      type="checkbox"
-      name="checkbox"
-      options="{options}"
-      label="Checkbox Field"
-    />
+        <Field
+          type="checkbox"
+          name="checkbox"
+          options="{options}"
+          label="Checkbox Field"
+        />
 
-    <Field
-      type="file"
-      name="file"
-      label="File"
-      fileLabel="Upload your resume"
-      placeholder="john-resume.pdf"
-    />
+        <Field
+          type="file"
+          name="file"
+          label="File"
+          fileLabel="Upload your resume"
+          placeholder="john-resume.pdf"
+        />
 
-    <Field
-      type="select"
-      multiple
-      name="selectedOptions"
-      options="{selectOptions}"
-      label="Select"
-      
-    />
+        <Field
+          type="select"
+          multiple
+          name="selectedOptions"
+          options="{selectOptions}"
+          label="Select"
+        />
 
 
-    <div class="field">
-      <div class="file has-name is-boxed">
-        <label class="file-label">
-          <input class="file-input" type="file" name="resume">
-          <span class="file-cta">
-            <span class="file-icon">
-              <i class="fas fa-upload"></i>
-            </span>
-            <span class="file-label">
-              Choose a file…
-            </span>
-          </span>
-          <span class="file-name">
-            Screen Shot 2017-07-29 at 15.54.25.png
-          </span>
-        </label>
-      </div>
+        <div class="field">
+          <div class="label">
+            Le Text
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <textarea
+              id="x"
+              name="text"
+              class="textarea"
+            >yo</textarea>
+          </div>
+        </div>
+
+
+      </Form>
     </div>
 
-    <div class="field">
-      <div class="label">
-        Le Text
-      </div>
+    <div class="column">
+      <h2 class="title is-3">formData</h2>
+      <pre>{JSON.stringify(formData, null, 2)}</pre>
     </div>
-
-    <div class="field">
-      <div class="control">
-        <textarea
-          id="x"
-          name="text"
-          class="textarea"
-          trim
-        >yo</textarea>
-      </div>
-    </div>
-
-
-  </Form>
-
-
-
-
-  <h2 class="title is-3">formData</h2>
-  <pre>{JSON.stringify(formData, null, 2)}</pre>
-
-
-
+  </div>
 </div>

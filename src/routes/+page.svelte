@@ -1,25 +1,38 @@
 <script lang="ts">
-  import { setContext } from 'svelte'
-  let formData = {}
+import * as yup from 'yup'
+import { fr } from 'yup-locales'
 
-  function handleSubmit(e) {
-    // console.log("Form Submitted")
-    // console.log(e)
-    formData = {}
-    Array.from(e.target.elements).forEach((el, i) => {
-      // console.log("Element:", el)
-      // console.log("Name:", el.name)
-      // console.log("Value:", el.value)
-      formData[el.name] = el.value
-    });
-    //formData = formData
-  }
+yup.setLocale(fr)
 
-  function handleChange(e) {
-    console.log(e.target.name, "changed to", e.target.value)
-    formData[e.target.name] = e.target.value
-    formData = formData
-  }
+import Form from '$lib/Form.svelte'
+import Field from '$lib/Field.svelte'
+
+
+let formData = {
+  first: "hello",
+}
+
+let validationSchema = yup.object().shape({
+  first: yup.string().required().min(3),
+  last: yup.string().required().max(8),
+  radio: yup.string(),
+  checkbox: yup.array()
+
+})
+
+let options = [
+  {label: "A", value: "a"},
+  {label: "B", value: "b"},
+  {label: "C", value: "c", checked: true},
+  {label: "D", value: "d", disabled: true},
+]
+
+let selectOptions = [
+  {label: "Select A", value: "a"},
+  {label: "Select B", value: "b"},
+  {label: "Select C", value: "c"},
+  {label: "Select D", value: "d"},
+]
 </script>
 
 <div class="card block">
@@ -38,32 +51,75 @@
 
     <div class="columns">
       <div class="column">
-        <form on:submit|preventDefault="{handleSubmit}" on:change="{handleChange}">
+        <Form bind:formData {validationSchema}>
+
+          <Field
+            name="first"
+            label="First"
+            help="Le prénom doit faire plus de 3 caractères"
+            icon="fas fa-user"
+          />
+
+          <Field
+            type="password"
+            name="last"
+            label="Last"
+            placeholder="world"
+            icon="fas fa-lock"
+          >
+            <div class="button" slot="addons">Hello</div>
+          </Field>
+
+          <Field
+            type="radio"
+            name="radio"
+            options="{options}"
+            label="Radio Field"
+          />
+
+          <Field
+            type="checkbox"
+            name="checkbox"
+            options="{options}"
+            label="Checkbox Field"
+          />
+
+          <Field
+            type="file"
+            name="file"
+            label="File"
+            fileLabel="Upload your resume"
+            placeholder="john-resume.pdf"
+          />
+
+          <Field
+            type="select"
+            multiple
+            name="selectedOptions"
+            options="{selectOptions}"
+            label="Select"
+          />
+
+
+          <!-- TODO TEXTAREA -->
           <div class="field">
-            <label class="label" for="firstName">First Name</label>
-            <div class="control">
-              <input class="input" id="firstName" type="text" name="firstName" value=""/>
+            <div class="label">
+              Le Text
             </div>
           </div>
 
           <div class="field">
-            <label class="label" for="lastName">Last Name</label>
             <div class="control">
-              <input class="input" id="lastName" type="text" name="lastName" value=""/>
+              <textarea
+                id="x"
+                name="text"
+                class="textarea"
+              >yo</textarea>
             </div>
           </div>
 
-          <div class="field">
-            <label class="label" for="email">Email</label>
-            <div class="control">
-              <input class="input" id="email" type="email" name="email" value="" />
-            </div>
-          </div>
 
-          <div class="submit">
-            <button class="button is-primary" type="submit">Submit</button>
-          </div>
-        </form>
+        </Form>
       </div>
 
       <div class="column">
